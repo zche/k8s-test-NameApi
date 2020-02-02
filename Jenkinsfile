@@ -19,7 +19,7 @@ node('check-jnlp') {
     stage('Push') {
         echo "4.Push Docker Image Stage"
         withCredentials([usernamePassword(credentialsId: 'harborAuth', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-            sh "docker login -u ${dockerHubUser} -p ${dockerHubPassword}"
+            sh "docker login registry.check.com -u ${dockerHubUser} -p ${dockerHubPassword}"
             sh "docker push registry.check.com/netcore/name-api:${build_tag}"
         }
     }
