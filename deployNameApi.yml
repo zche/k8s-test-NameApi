@@ -17,7 +17,7 @@ spec:
     spec:
       containers: 
       - name: name-api
-        image: registry.check.com/netcore/name-api
+        image: registry.check.com/netcore/name-api:<BUILD_TAG>
         ports:
         - containerPort: 80
         imagePullPolicy: IfNotPresent
