@@ -13,7 +13,7 @@ podTemplate(
     {
     node(label) {
         stage('test') {
-            container('docker'){
+            container('kubectl'){
                     echo "build test"
                 }
         }
