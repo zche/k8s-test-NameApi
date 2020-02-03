@@ -1,22 +1,22 @@
-def label = "jenkins-slave-${UUID.randomUUID().toString()}"
-
 podTemplate(
-    name: 'jnlp',
-    label: label,
+    name: 'test-pod',
+    label: 'test-pod',
     containers: [
-        containerTemplate(name: 'jnlp', image: 'registry.check.com/netcore/jnlp-slave:3.40', command: 'cat', ttyEnabled: true)
-    ], 
+        containerTemplate(name: 'jnlp', image:'registry.check.com/netcore/jnlp-slave:3.40'),
+    ],
     volumes: [
-        hostPathVolume(mountPath: '/root/.kube', hostPath: '/root/.kube'),
-        hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
+        hostPathVolume(mountPath: '/var/run/docker.sock',
+        hostPath: '/var/run/docker.sock',
     ],
     {
-    node(label) {
-        stage('test') {
-            echo "1.test"
-            container('jnlp') {
-                sh "kubectl get pods"
+        //node = the pod label
+        node('test-pod'){
+            //container = the container label
+            stage('Build'){
+                container('jnlp'){
+                    echo "build test"
+                    // This is where we build our code.
+                }
             }
         }
-    }
-})
+    })
