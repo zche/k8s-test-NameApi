@@ -50,8 +50,8 @@ podTemplate(
                 if (env.BRANCH_NAME == 'master') {
                     input "确认要部署线上环境吗？"
                 }
-                sh "sed -i 's/<BUILD_TAG>/${imageTag}/' deployNameApi.yaml"
-                sh "kubectl apply -f deployNameApi.yaml --record"
+                sh "sed -i 's/<BUILD_TAG>/${imageTag}/' deployNameApi.yml"
+                sh "kubectl apply -f deployNameApi.yml --record"
             }
         }
     }
