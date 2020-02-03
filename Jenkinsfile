@@ -15,7 +15,7 @@ podTemplate(
     {
     node(label) {
         stage('test') {
-            container('docker'){
+            container('jnlp'){
                     echo "build test"
                 }
         }
