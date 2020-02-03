@@ -1,26 +1,26 @@
-def label = "slave-${UUID.randomUUID().toString()}"
+def label = "slave-check"
 
 podTemplate(label: label, containers: [
-  containerTemplate(name: 'docker', image: 'registry.check.com/netcore/docker:19.03.5', command: 'cat', ttyEnabled: true),
-  containerTemplate(name: 'kubectl', image: 'registry.check.com/netcore/kubectl:1.17.2', command: 'cat', ttyEnabled: true),
-  containerTemplate(name: 'jnlp', image: 'registry.check.com/netcore/jnlp-slave:3.40', command: 'cat', ttyEnabled: true)
+  containerTemplate(name: 'docker', image: 'registry.check.com/netcore/docker:19.03.5'),
+  containerTemplate(name: 'kubectl', image: 'registry.check.com/netcore/kubectl:1.17.2'),
+  containerTemplate(name: 'jnlp', image: 'registry.check.com/netcore/jnlp-slave:3.40')
 ], volumes: [
   hostPathVolume(mountPath: 'root/.kube', hostPath: '/root/.kube'),
   hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
 ]) {
   node(label) {
 
-    stage('单元测试') {
-      echo "测试阶段"
+    stage('test') {
+      echo "test"
     }
-    stage('构建 Docker 镜像') {
+    stage('build') {
       container('docker') {
-        echo "构建 Docker 镜像阶段"
+        echo "build Docker "
       }
     }
-    stage('运行 Kubectl') {
+    stage('run Kubectl') {
       container('kubectl') {
-        echo "查看 K8S 集群 Pod 列表"
+        echo "check K8S cluster pods"
         sh "kubectl get pods"
       }
     }
