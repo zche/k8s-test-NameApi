@@ -4,7 +4,7 @@ podTemplate(
     name: label,
     label: label,
     containers: [
-        containerTemplate(name: 'jnlp', image: 'registry.check.com/netcore/jnlp-slave:3.40')
+        containerTemplate(name: 'docker', image: 'registry.check.com/netcore/docker:19.03.5')
     ], 
     volumes: [
         hostPathVolume(mountPath: '/root/.kube', hostPath: '/root/.kube'),
@@ -13,7 +13,7 @@ podTemplate(
     {
     node(label) {
         stage('test') {
-            container('jnlp'){
+            container('docker'){
                     echo "build test"
                 }
         }
