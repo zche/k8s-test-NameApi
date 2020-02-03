@@ -1,7 +1,7 @@
 def label = "jenkins-slave-${UUID.randomUUID().toString()}"
 
 podTemplate(
-    name: label
+    name: label,
     label: label,
     containers: [
         containerTemplate(name: 'docker', image: 'registry.check.com/netcore/docker:19.03.5'),
