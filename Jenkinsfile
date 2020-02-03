@@ -1,8 +1,8 @@
-def labeltag = "jenkins-slave-${UUID.randomUUID().toString()}"
+def label = "jenkins-slave-${UUID.randomUUID().toString()}"
 
 podTemplate(
-    name: labeltag,
-    label: labeltag,
+    name: label,
+    label: label,
     containers: [
         containerTemplate(name: 'jnlp', image: 'registry.check.com/netcore/jnlp-slave:3.40')
     ], 
@@ -11,7 +11,7 @@ podTemplate(
         hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
     ],
     {
-    node(labeltag) {
+    node(label) {
         stage('test') {
             container('jnlp'){
                     echo "build test"
