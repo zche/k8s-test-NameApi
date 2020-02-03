@@ -2,7 +2,7 @@ podTemplate(
     name: 'test-jnlp',
     label: 'test-jnlp',
     containers: [
-        containerTemplate(name: 'jnlp', image: 'registry.check.com/netcore/jnlp-slave:3.40', command: 'cat', ttyEnabled: true)
+        containerTemplate(name: 'jnlp', image: 'registry.check.com/netcore/jnlp-slave:3.40')
     ], 
     volumes: [
         hostPathVolume(mountPath: '/root/.kube', hostPath: '/root/.kube'),
