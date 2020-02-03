@@ -28,7 +28,7 @@ podTemplate(
                 credentialsId: 'harborAuth',
                 usernameVariable: 'DOCKER_HUB_USER',
                 passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
-                container('docker') {
+                container('jnlp') {
                     echo "2. 构建 Docker 镜像阶段"
                     sh """
                     docker login ${dockerRegistryUrl} -u ${DOCKER_HUB_USER} -p ${DOCKER_HUB_PASSWORD}
@@ -45,7 +45,7 @@ podTemplate(
             
         }
         stage('发布上线') {
-            container('kubectl') {
+            container('jnlp') {
                 echo "3. 发布上线"
                 if (env.BRANCH_NAME == 'master') {
                     input "确认要部署线上环境吗？"
