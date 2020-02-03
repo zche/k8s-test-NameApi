@@ -4,7 +4,6 @@ podTemplate(
     name: label,
     label: label,
     containers: [
-        containerTemplate(name: 'kubectl', image: 'registry.check.com/netcore/kubectl:1.17.2'),
         containerTemplate(name: 'jnlp', image: 'registry.check.com/netcore/jnlp-slave:3.40')
     ], 
     volumes: [
