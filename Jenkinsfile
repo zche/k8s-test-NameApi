@@ -28,14 +28,12 @@ podTemplate(
                 credentialsId: 'harborAuth',
                 usernameVariable: 'DOCKER_HUB_USER',
                 passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
-                container('jnlp') {
                     echo "2. 构建 Docker 镜像阶段"
                     sh """
                     docker login ${dockerRegistryUrl} -u ${DOCKER_HUB_USER} -p ${DOCKER_HUB_PASSWORD}
                     docker build -t ${image}:${imageTag} .
                     docker push ${image}:${imageTag}
-                    """
-                }
+                    """                
                 }
             }
             catch(exc) {
@@ -45,14 +43,12 @@ podTemplate(
             
         }
         stage('发布上线') {
-            container('jnlp') {
-                echo "3. 发布上线"
-                if (env.BRANCH_NAME == 'master') {
-                    input "确认要部署线上环境吗？"
-                }
-                sh "sed -i 's/<BUILD_TAG>/${imageTag}/' deployNameApi.yml"
-                sh "kubectl apply -f deployNameApi.yml --record"
+            echo "3. 发布上线"
+            if (env.BRANCH_NAME == 'master') {
+                input "确认要部署线上环境吗？"
             }
+            sh "sed -i 's/<BUILD_TAG>/${imageTag}/' deployNameApi.yml"
+            sh "kubectl apply -f deployNameApi.yml --record"
         }
     }
 }
